@@ -41,8 +41,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         tableView.scrollToEndOfDocument(self)
     }
 
-    @objc
-    @available(*, unavailable)
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
         /////////////////////////////////////////////////////////////////
         //	Begin of example core.
@@ -56,25 +54,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         //	End of example core.
         /////////////////////////////////////////////////////////////////
 	}
-
-    @objc
-    @available(*, unavailable)
-	func applicationWillTerminate(_ aNotification: Notification) {
+    
+    func applicationWillTerminate(_ aNotification: Notification) {
         monitor = nil
 	}
 
-    @objc
-    @available(*, unavailable)
+    
 	func numberOfRows(in tableView: NSTableView) -> Int {
 		return items.count
 	}
-    @objc
-    @available(*, unavailable)
+    
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         return items[row].isSeparator == false
     }
-    @objc
-    @available(*, unavailable)
+    
 	func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
 		let	tv1	=	NSTextField()
 		let	iv1	=	NSImageView()
@@ -87,13 +80,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
 		cv1.textField!.isBordered		=	false
 		cv1.textField!.backgroundColor	=	NSColor.clear
 		cv1.textField!.isEditable		=	false
-		cv1.textField!.lineBreakMode	=	NSLineBreakMode.byTruncatingHead
+		cv1.textField!.lineBreakMode	=	NSParagraphStyle.LineBreakMode.byTruncatingHead
 		
 		let	n1 = items[row]
-		switch tableColumn!.identifier {
+		switch tableColumn!.identifier.rawValue {
 		case "PATH":
             if FileManager.default.fileExists(atPath: n1.path) {
-                iv1.image = NSWorkspace.shared().icon(forFile: n1.path)
+                iv1.image = NSWorkspace.shared.icon(forFile: n1.path)
             }
 			cv1.textField!.stringValue = n1.path
 		case "TYPE":

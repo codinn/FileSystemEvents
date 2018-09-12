@@ -15,11 +15,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBOutlet weak var window: NSWindow!
 	
 	let	s1		=	FileSystemEventMonitor(
-		pathsToWatch: ["~/Documents".stringByExpandingTildeInPath, "~/Temp".stringByExpandingTildeInPath],
+		pathsToWatch: [("~/Documents" as NSString).expandingTildeInPath, ("~/Temp" as NSString).expandingTildeInPath],
 		latency: 1,
 		watchRoot: true,
-		queue: dispatch_get_main_queue()) { (events:[FileSystemEvent])->() in
-			println(events)
+		queue: DispatchQueue.main) { (events:[FileSystemEvent])->() in
+			print(events)
 		}
 	
 }
